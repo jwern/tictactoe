@@ -7,7 +7,7 @@ const Gameboard = (() => {
   // ];
   let boardWidth = 3;
   let boardHeight = 3;
-  let rows = [...Array(boardHeight)].map(() => Array(boardWidth).fill("x"));
+  let rows = [...Array(boardHeight)].map(() => Array(boardWidth).fill(" "));
 
   const buildGameBoard = () => {
     let board = document.getElementById('game-board');
@@ -28,10 +28,9 @@ const Gameboard = (() => {
         if (index !== row.length - 1) {
           square.classList.add('right-border');
         }
-        // Sets a data-id that matches row-column index, e.g.:
-        // upper-left corner will be data-id: 0-0
-        // bottom-right corner in a 3x3 grid will be 2-2
-        square.setAttribute('data-id', `${rowIndex}-${index}`);
+        // Sets two data attributes that match the location in our nested rows array
+        square.setAttribute('data-row', `${rowIndex}`);
+        square.setAttribute('data-column', `${index}`);
         square.innerText = item;
         board.append(square);
       })
@@ -39,8 +38,16 @@ const Gameboard = (() => {
 
     const setupListeners = (() => {
       let squares = board.querySelectorAll('.board-square');
-      squares.forEach(square => square.addEventListener('click', PlayGame.squareClicked));
+      squares.forEach(square => square.addEventListener('click', squareClicked));
     })()
+  }
+
+  function squareClicked() {
+    let squareMark = PlayGame.getCurrentPlayer().mark;
+    rows[this.getAttribute('data-row')][this.getAttribute('data-column')] = squareMark;
+    this.innerText = squareMark;
+
+    console.log(rows);
   }
 
   return { 
@@ -50,30 +57,36 @@ const Gameboard = (() => {
 })()
 
 // Factory Function that can be used to create players
-const Player = playerName => {
+const Player = (playerName, playerMark) => {
   let name = playerName;
-  return { name };
+  let mark = playerMark;
+  return { name, mark };
 }
 
 // IIFE initialized immediately; returned methods available for call
 const PlayGame = (() => {
   // let player1 = Player(prompt("Who is player 1?"));
   // let player2 = Player(prompt("And player 2?"));
-  let player1 = Player("Me");
-  let player2 = Player("You");
+  let player1 = Player("Me", "X");
+  let player2 = Player("You", "O");
 
   let gameStart = () => {
     console.log(`The game has begun, ${player1.name} & ${player2.name}`);
     Gameboard.buildGameBoard();
   }
 
-  function squareClicked() {
-    console.log(`clicked ${this.getAttribute('data-id')}`);
+  const getCurrentPlayer = () => {
+    // console.log(Gameboard.rows.flat().filter(item => item !== " ").length);
+    if (Gameboard.rows.flat().filter(item => item !== " ").length % 2 === 0) {
+      return player1;
+    } else {
+      return player2;
+    }
   }
 
   return { 
-    gameStart, 
-    squareClicked 
+    gameStart,
+    getCurrentPlayer
   };
 })()
 
