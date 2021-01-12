@@ -43,6 +43,7 @@ const Gameboard = (() => {
     if (rows[arrayRow][arrayColumn] === defaultFill) {
       rows[arrayRow][arrayColumn] = currentPlayer.mark;
       this.innerText = currentPlayer.mark;
+      this.classList.add(`${currentPlayer.number}-color`);
       checkForWinner(arrayRow, arrayColumn, currentPlayer);
     } else {
       alert("Pick an empty square");
@@ -89,7 +90,7 @@ const Gameboard = (() => {
 
       // Check if the board is filled and there is no winner
       if (!rows.flat().includes(defaultFill)) {
-        console.log("It's a tie!");
+        alert("It's a tie!");
       }
   }
 
@@ -108,18 +109,19 @@ const Gameboard = (() => {
 })()
 
 // Factory Function that can be used to create players
-const Player = (playerName, playerMark) => {
+const Player = (playerName, playerMark, playerNumber) => {
   let name = playerName;
   let mark = playerMark;
-  return { name, mark };
+  let number = playerNumber
+  return { name, mark, number };
 }
 
 // IIFE initialized immediately; returned methods available for call
 const PlayGame = (() => {
   // let player1 = Player(prompt("Who is player 1?"));
   // let player2 = Player(prompt("And player 2?"));
-  let player1 = Player("Me", "X");
-  let player2 = Player("You", "O");
+  let player1 = Player("Me", "X", "player1");
+  let player2 = Player("You", "O", "player2");
 
   let gameStart = () => {
     console.log(`The game has begun, ${player1.name} & ${player2.name}`);
@@ -150,10 +152,8 @@ PlayGame.gameStart();
 
 
 // NEXT TO-DO: 
-// Add check for tie (board is full and there are no winners)
-// End game when victory or tie condition is met:  1) Declare winner, 2) Remove eventListeners from squares so you can't keep
-
-// FUTURE TO-DO:
 // Let users give names and choose marks
 // Allow game restart (allow clear board on victory / tie)
-// Add colors to squares
+
+// FUTURE TO-DO:
+// Add computer / AI opponent

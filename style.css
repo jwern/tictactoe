@@ -32,3 +32,11 @@ body {
 .board-square.bottom-border {
   border-bottom: 2px solid black;
 }
+
+.player1-color {
+  background-color: aquamarine;
+}
+
+.player2-color {
+  background-color: darkslateblue;
+}
