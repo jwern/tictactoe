@@ -32,10 +32,7 @@ const Gameboard = (() => {
       })
     }
 
-    const setupListeners = (() => {
-      let squares = board.querySelectorAll('.board-square');
-      squares.forEach(square => square.addEventListener('click', squareClicked));
-    })()
+    toggleListeners(addEventListener);
   }
 
   function squareClicked() {
@@ -62,7 +59,7 @@ const Gameboard = (() => {
 
       // Check if there's a victory across
       if (checker(rows[row])) {
-        console.log("Winner across!", `Congrats ${currentPlayer.name}`);
+        PlayGame.declareWinner(currentPlayer);
         return; // If there is a victory, we stop checking other directions - technically there could be a dual victory for one player, but we'll add this later
       }
 
@@ -73,7 +70,7 @@ const Gameboard = (() => {
 
       // Check if there's a victory up-and-down
       if (checker(tempColumn)) {
-        console.log("Winner up and down!", `Congrats ${currentPlayer.name}`);
+        PlayGame.declareWinner(currentPlayer);
         return;
       }
 
@@ -86,15 +83,27 @@ const Gameboard = (() => {
 
       // Check if there's a victory diagonally
       if (checker(rightDiagonal) || checker(leftDiagonal)) {
-        console.log("Winner diagonally!");
+        PlayGame.declareWinner(currentPlayer);
         return;
       }
+
+      // Check if the board is filled and there is no winner
+      if (!rows.flat().includes(defaultFill)) {
+        console.log("It's a tie!");
+      }
+  }
+
+  function toggleListeners(toggleFunction) {
+    let board = document.getElementById('game-board');
+    let squares = board.querySelectorAll('.board-square');
+    squares.forEach(square => toggleFunction.call(square, 'click', squareClicked));
   }
 
   return { 
     rows, 
     defaultFill,
     buildGameBoard,
+    toggleListeners
   };
 })()
 
@@ -125,9 +134,15 @@ const PlayGame = (() => {
     }
   }
 
+  const declareWinner = player => {
+    alert(`${player.name} wins!`);
+    Gameboard.toggleListeners(removeEventListener);
+  }
+
   return { 
     gameStart,
-    getCurrentPlayer
+    getCurrentPlayer,
+    declareWinner
   };
 })()
 
