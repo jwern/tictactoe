@@ -3,10 +3,13 @@ const Gameboard = (() => {
   let boardWidth = 3;
   let boardHeight = boardWidth; // Only working with square boards right now, but written with both variables to allow this to change in the future
   let defaultFill = " ";
-  let rows = [...Array(boardHeight)].map(() => Array(boardWidth).fill(defaultFill));
+  let rows;
   let board = document.getElementById('game-board');
   
+  const getRows = () => rows;
+
   const buildGameBoard = () => {
+    rows = [...Array(boardHeight)].map(() => Array(boardWidth).fill(defaultFill));
     // Create the CSS grid to match the width and height of the rows array
     board.style.gridTemplateRows = `repeat(${boardHeight}, 1fr)`;
     board.style.gridTemplateColumns = `repeat(${boardWidth}, 1fr)`;
@@ -100,7 +103,7 @@ const Gameboard = (() => {
   }
 
   return { 
-    rows, 
+    getRows, 
     defaultFill,
     buildGameBoard,
     toggleListeners
@@ -128,7 +131,7 @@ const PlayGame = (() => {
   }
 
   const getCurrentPlayer = () => {
-    if (Gameboard.rows.flat().filter(item => item !== Gameboard.defaultFill).length % 2 === 0) {
+    if (Gameboard.getRows().flat().filter(item => item !== Gameboard.defaultFill).length % 2 === 0) {
       return player1;
     } else {
       return player2;

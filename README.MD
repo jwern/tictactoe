@@ -18,7 +18,7 @@ Another challenge I ran into was really understanding the return value of a fact
 
 However, when I attempted to move the array assignment to a local function in `Gameboard` and make the initialized value `undefined` (by simply initializing `let rows` in `Gameboard`), outside functions could only ever access the `undefined` value of `Gameboard.rows` and did not get the updated array.  This is because `Gameboard.rows` was returning the initial value assigned at initialization: it was not a getter function for returning the current value of `rows`.  The reason it happens to work with the array version is that our initial value is the same array at the same point in memory, and we are just pushing elements into this array.  
 
-A better version of this would not return `rows` directly, but would use a getter function to return it.  This was an absolutely baffling error when first encountered, but learning why it occurred helped me understand factory function returns much better.
+A better version of this would not return `rows` directly, but would use a getter function to return it: after encountering this error, I updated `Gameboard` to use this method instead, so that external functions access `Gameboard.getRows()` and internal functions with access to `rows` directly merely call it.  This was a baffling error when first encountered, but learning why it occurred helped me understand factory function returns much better.
 
 ## Screenshots ##
 
