@@ -8,8 +8,20 @@
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-  <div id="game-board">
+  <div id="player-input">
+    <form id="player-form">
+      <label for="player-1-name">Player 1 Name</label>
+      <input type="text" id="player-1-name" name="player-1-name"><br/>
+      <label for="player-2-name">Player 2 Name</label>
+      <input type="text" id="player-2-name" name="player-2-name"><br/>
+      <label for="player-1-mark">Player 1 Marker</label>
+      <input type="text" id="player-1-marker" name="player-1-marker" maxlength="1"><br/>
+      <label for="player-2-mark">Player 2 Marker</label>
+      <input type="text" id="player-2-marker" name="player-2-marker" maxlength="1"><br/>
+      <input type="submit" id="begin-game-button" value="Begin Game">
+    </form>
   </div>
+  <div id="game-board"></div>
   <script type="text/javascript" src="./javascript.js"></script>
 </body>
 </html>

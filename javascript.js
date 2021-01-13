@@ -112,23 +112,49 @@ const Gameboard = (() => {
 
 // Factory Function that can be used to create players
 const Player = (playerName, playerMark, playerNumber) => {
-  let name = playerName;
-  let mark = playerMark;
-  let number = playerNumber
+  let name = checkPlayerName(playerName);
+  let mark = checkPlayerMarker(playerMark);
+  let number = playerNumber;
+
+  function checkPlayerName(name) {
+    if (!name) {
+      return (playerNumber === "player1" ? "Player 1" : "Player 2");
+    } else {
+      return name;
+    };
+  }
+
+  function checkPlayerMarker(marker) {
+    if (!marker || marker === Gameboard.defaultFill) {
+      return (playerNumber === "player1" ? "X" : "O");
+    } else {
+      return marker;
+    };
+  }
+
   return { name, mark, number };
 }
 
 // IIFE initialized immediately; returned methods available for call
 const PlayGame = (() => {
-  // let player1 = Player(prompt("Who is player 1?"));
-  // let player2 = Player(prompt("And player 2?"));
-  let player1 = Player("Me", "X", "player1");
-  let player2 = Player("You", "O", "player2");
-
-  let gameStart = () => {
+  let player1;
+  let player2;
+  let playerForm = document.getElementById('player-form');
+  
+  let gameStart = (playerData) => {
+    player1 = Player(playerData["player-1-name"], playerData["player-1-marker"], "player1");
+    player2 = Player(playerData["player-2-name"], playerData["player-2-marker"], "player2");
     console.log(`The game has begun, ${player1.name} & ${player2.name}`);
     Gameboard.buildGameBoard();
   }
+
+  playerForm.addEventListener('submit', e => {
+    e.preventDefault();
+    let playerData = Object.fromEntries(new FormData(e.target).entries());
+    console.log(playerData);
+    gameStart(playerData);
+    e.target.reset();
+  })
 
   const getCurrentPlayer = () => {
     if (Gameboard.getRows().flat().filter(item => item !== Gameboard.defaultFill).length % 2 === 0) {
@@ -150,7 +176,7 @@ const PlayGame = (() => {
   };
 })()
 
-PlayGame.gameStart();
+// PlayGame.gameStart();
 
 
 // NEXT TO-DO: 

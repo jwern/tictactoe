@@ -30,8 +30,8 @@ TBA
 
 As mentioned in the post-mortem above, this project feels like it would greatly benefit from being written with Classes: after I progress through The Odin Project's Classes lessons, I would like to return and possibly rewrite this project to incorporate Classes.  I've left the project somewhat barebones in anticipation of this rewrite: the styling is almost non-existent, and the following features are yet to be added:
 
-- Let players set their names
-- Let players choose their marker (instead of just "X" and "O")
+[X] Let players set their names
+[X] Let players choose their marker (instead of just "X" and "O")
 - Allow replay after game end (clear game board but keep names and markers)
 - Track scores and maintain through replays
 - Add computer / AI opponent
