@@ -32,6 +32,7 @@ As mentioned in the post-mortem above, this project feels like it would greatly 
 
 [X] Let players set their names
 [X] Let players choose their marker (instead of just "X" and "O")
+- Let players choose their square background color
 - Allow replay after game end (clear game board but keep names and markers)
 - Track scores and maintain through replays
 - Add computer / AI opponent

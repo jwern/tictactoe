@@ -112,23 +112,19 @@ const Gameboard = (() => {
 
 // Factory Function that can be used to create players
 const Player = (playerName, playerMark, playerNumber) => {
-  let name = checkPlayerName(playerName);
-  let mark = checkPlayerMarker(playerMark);
+  let name = checkPlayerName(playerName) || playerName;
+  let mark = checkPlayerMarker(playerMark) || playerMark;
   let number = playerNumber;
 
-  function checkPlayerName(name) {
-    if (!name) {
+  function checkPlayerName(name) { // Defaults if no name is given
+    if (!name.trim()) {
       return (playerNumber === "player1" ? "Player 1" : "Player 2");
-    } else {
-      return name;
     };
   }
 
-  function checkPlayerMarker(marker) {
+  function checkPlayerMarker(marker) { // Defaults if no marker is given
     if (!marker || marker === Gameboard.defaultFill) {
       return (playerNumber === "player1" ? "X" : "O");
-    } else {
-      return marker;
     };
   }
 
@@ -140,6 +136,7 @@ const PlayGame = (() => {
   let player1;
   let player2;
   let playerForm = document.getElementById('player-form');
+  let beginGameButton = document.getElementById('begin-game-button');
   
   let gameStart = (playerData) => {
     player1 = Player(playerData["player-1-name"], playerData["player-1-marker"], "player1");
@@ -151,9 +148,9 @@ const PlayGame = (() => {
   playerForm.addEventListener('submit', e => {
     e.preventDefault();
     let playerData = Object.fromEntries(new FormData(e.target).entries());
-    console.log(playerData);
+    beginGameButton.classList.toggle('hidden');
     gameStart(playerData);
-    e.target.reset();
+    // e.target.reset();
   })
 
   const getCurrentPlayer = () => {

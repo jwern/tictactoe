@@ -8,17 +8,26 @@
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
+  <div class="title">Tic-<span class="title-2">T</span>ac-<span class="title-3">Toe</span></div>
   <div id="player-input">
     <form id="player-form">
-      <label for="player-1-name">Player 1 Name</label>
-      <input type="text" id="player-1-name" name="player-1-name"><br/>
-      <label for="player-2-name">Player 2 Name</label>
-      <input type="text" id="player-2-name" name="player-2-name"><br/>
-      <label for="player-1-mark">Player 1 Marker</label>
-      <input type="text" id="player-1-marker" name="player-1-marker" maxlength="1"><br/>
-      <label for="player-2-mark">Player 2 Marker</label>
-      <input type="text" id="player-2-marker" name="player-2-marker" maxlength="1"><br/>
-      <input type="submit" id="begin-game-button" value="Begin Game">
+      <div class="player-form-inputs">
+        <div class="player-inputs">
+          <label for="player-1-name">Player 1 Name</label>
+          <input type="text" id="player-1-name" class="name-input" name="player-1-name"><br/>
+          <label for="player-1-mark">Player 1 Marker</label>
+          <input type="text" id="player-1-marker" class="marker-input" name="player-1-marker" maxlength="1">
+        </div>
+        <div class="player-inputs">
+          <label for="player-2-name">Player 2 Name</label>
+          <input type="text" id="player-2-name" class="name-input" name="player-2-name"><br/>
+          <label for="player-2-mark">Player 2 Marker</label>
+          <input type="text" id="player-2-marker" class="marker-input" name="player-2-marker" maxlength="1">
+        </div>
+      </div>
+      <div class="form-button">
+        <input type="submit" id="begin-game-button" value="Begin Game">
+      </div>
     </form>
   </div>
   <div id="game-board"></div>
