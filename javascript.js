@@ -41,11 +41,11 @@ const Gameboard = (() => {
 
   function squareClicked() {
     // Complete the player's turn and check if the game is over
-    let gameOver = completeTurn(this);
+    let playerTurn = completeTurn(this);
     
     // We only want to invoke the computer's turn if 
     // we're playing against the computer and the game is not over
-    if (PlayGame.againstComputer() && !gameOver) {
+    if (PlayGame.againstComputer() && !playerTurn) {
       toggleListeners(removeEventListener);
       setTimeout(computerTakeTurn, 1000);
     }
@@ -56,8 +56,8 @@ const Gameboard = (() => {
     let emptySquares = [...board.querySelectorAll('.board-square')].filter(square => square.innerHTML === defaultFill);
     let chosenSquare = emptySquares[Math.floor(Math.random() * emptySquares.length)];
    
-    toggleListeners(addEventListener);
     completeTurn(chosenSquare);
+    toggleListeners(addEventListener);
   }
 
   function completeTurn(pickedSquare) {
@@ -74,13 +74,12 @@ const Gameboard = (() => {
       pickedSquare.innerText = currentPlayer.mark;
       // Add the player's color to the square
       pickedSquare.classList.add(`${currentPlayer.number}-color`);
-      // Check if the game is over via victory or tie
-      var gameOver = checkForWinner(row, column, currentPlayer);
+       // Check if the game is over via victory or tie
+       return checkForWinner(row, column, currentPlayer);
     } else {
       alert("Please pick an empty square");
+      return true;
     };
-
-    return gameOver;
   }
 
   function checkForWinner(row, column, currentPlayer) {
@@ -88,26 +87,27 @@ const Gameboard = (() => {
         let lineCheck = new Set(line);
         // Checks if there are any empty squares; 
         // and if not, checks if all squares are the same
-        return !lineCheck.has(defaultFill) && lineCheck.size === 1;
+        return !lineCheck.has(defaultFill) && lineCheck.size === 1
       }
 
       // Check if there's a victory across
       if (checker(rows[row])) {
-        PlayGame.declareWinner(currentPlayer);
-        return true; // If there is a victory, we stop checking other directions
-      }
+        setTimeout(() => PlayGame.declareWinner(currentPlayer), 0);
+        return true;  // If there is a victory, we stop checking other directions
+    }
 
+      // Check if there's a victory up-and-down
       let tempColumn = [];
       for (row of rows) {
         tempColumn.push(row[column]);
       }
 
-      // Check if there's a victory up-and-down
       if (checker(tempColumn)) {
-        PlayGame.declareWinner(currentPlayer);
+        setTimeout(() => PlayGame.declareWinner(currentPlayer), 0);
         return true;
       }
 
+      // Check if there's a victory diagonally
       let rightDiagonal = [];
       let leftDiagonal = [];
       for  (x = 0, y = rows.length - 1; x < rows.length; x++, y--) {
@@ -115,15 +115,14 @@ const Gameboard = (() => {
         leftDiagonal.push(rows[y][x]);
       }
 
-      // Check if there's a victory diagonally
       if (checker(rightDiagonal) || checker(leftDiagonal)) {
-        PlayGame.declareWinner(currentPlayer);
+        setTimeout(() => PlayGame.declareWinner(currentPlayer), 0);
         return true;
       }
 
       // Check if the board is filled and there is no winner
       if (!rows.flat().includes(defaultFill)) {
-        alert("It's a tie!");
+        setTimeout(() => PlayGame.declareWinner(), 0);
         return true;
       }
   }
@@ -222,9 +221,13 @@ const PlayGame = (() => {
   }
 
   const declareWinner = player => {
-    alert(`${player.name} wins!`);
-    player.addVictory();
-    updateScoreboard();
+    if (player) {
+      alert(`${player.name} wins!`);
+      player.addVictory();
+      updateScoreboard();
+    } else {
+      alert("It's a tie!");
+    };
 
     if (confirm("Play again?")) {
       Gameboard.setupRematch();
