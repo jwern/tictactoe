@@ -2,7 +2,7 @@
 
 :root {
   --button-color: #bfbfbf;
-  --player-1-color: aquamarine;
+  --player-1-color: #7fffd4;
   --player-2-color: #ff7faa;
 }
 
@@ -15,8 +15,8 @@ body {
   font-size: 1rem;
   margin: 0;
   padding: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 }
 
 .title {
@@ -33,10 +33,18 @@ body {
   color: var(--player-2-color);
 }
 
+.title-3 {
+    /* font-size: 72px; */
+    background: linear-gradient(135deg, rgba(127,255,212,1) 50%, rgba(255,127,170,1) 52%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 #game-board {
   display: grid;
-  width: 600px;
-  height: 600px;
+  width: 500px;
+  height: 500px;
   font-size: 2rem;
   margin: auto;
 }
@@ -46,14 +54,15 @@ body {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  color: var(--button-color);
 }
 
 .board-square.right-border {
-  border-right: 2px solid black;
+  border-right: 3px solid var(--button-color);
 }
 
 .board-square.bottom-border {
-  border-bottom: 2px solid black;
+  border-bottom: 3px solid var(--button-color);
 }
 
 .player1-color {
@@ -75,6 +84,18 @@ body {
 
 .player-inputs {
   margin: 12px;
+}
+
+.player-inputs fieldset {
+  border-radius: 12px;
+}
+
+#player-1-inputs fieldset {
+  border: 2px solid var(--player-1-color);
+}
+
+#player-2-inputs fieldset {
+  border: 2px solid var(--player-2-color);
 }
 
 .form-button {

@@ -49,7 +49,7 @@ const Gameboard = (() => {
       this.classList.add(`${currentPlayer.number}-color`);
       checkForWinner(arrayRow, arrayColumn, currentPlayer);
     } else {
-      alert("Pick an empty square");
+      alert("Please pick an empty square");
     };
   }
 
