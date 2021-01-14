@@ -116,9 +116,12 @@ body {
   color: inherit;
 }
 
-.form-button {
-  margin: var(--standard-padding);
-  text-align: center;
+#ai-check input {
+  border: 4px solid black;
+}
+
+#ai-check.hidden {
+  display: none;
 }
 
 #begin-game-button {
@@ -127,6 +130,11 @@ body {
   border-radius: var(--standard-padding);
   padding: 20px;
   cursor: pointer;
+}
+
+.form-button {
+  margin: var(--standard-padding);
+  text-align: center;
 }
 
 input {

@@ -45,7 +45,8 @@ const Gameboard = (() => {
     
     // We only want to invoke the computer's turn if 
     // we're playing against the computer and the game is not over
-    if (PlayGame.againstComputer && !gameOver) {
+    if (PlayGame.againstComputer() && !gameOver) {
+      toggleListeners(removeEventListener);
       setTimeout(computerTakeTurn, 1000);
     }
   }
@@ -55,6 +56,7 @@ const Gameboard = (() => {
     let emptySquares = [...board.querySelectorAll('.board-square')].filter(square => square.innerHTML === defaultFill);
     let chosenSquare = emptySquares[Math.floor(Math.random() * emptySquares.length)];
    
+    toggleListeners(addEventListener);
     completeTurn(chosenSquare);
   }
 
@@ -177,21 +179,27 @@ const Player = (playerName, playerMark, playerNumber) => {
 const PlayGame = (() => {
   let player1;
   let player2;
-  let computer = true;
+  let computer;
   let playerForm = document.getElementById('player-form');
-  let beginGameButton = document.getElementById('begin-game-button');
   
   let gameStart = (playerData) => {
     player1 = Player(playerData["player-1-name"], playerData["player-1-marker"], "player1");
     player2 = Player(playerData["player-2-name"], playerData["player-2-marker"], "player2");
-    console.log(`The game has begun, ${player1.name} & ${player2.name}`);
+
+    if (playerData["play-with-computer"]) {
+      computer = true;
+    }
     Gameboard.buildGameBoard();
   }
 
   playerForm.addEventListener('submit', e => {
     e.preventDefault();
     let playerData = Object.fromEntries(new FormData(e.target).entries());
+    let beginGameButton = document.getElementById('begin-game-button');
+    let aiButton = document.getElementById('ai-check');
+
     beginGameButton.classList.toggle('hidden');
+    aiButton.classList.toggle('hidden');
     gameStart(playerData);
   })
 

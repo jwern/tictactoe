@@ -28,15 +28,15 @@ TBA
 
 ## To Do ##
 
-As mentioned in the post-mortem above, this project feels like it would greatly benefit from being written with Classes: after I progress through The Odin Project's Classes lessons, I would like to return and possibly rewrite this project to incorporate Classes.  I've skipped implementing some features, most notably an AI opponent, in anticipation of this rewrite.  I've also used shortcuts for a few others: for instance, I'd prefer not to use `confirm()` and `alert()` for the "replay?" and "pick an empty square" messages, respectively, but making these custom alerts was not an interesting or worthwhile problem at this time.
+As mentioned in the post-mortem above, this project feels like it would greatly benefit from being written with Classes: after I progress through The Odin Project's Classes lessons, I would like to return and possibly rewrite this project to incorporate Classes.  I've used shortcuts for a few features: for instance, I'd prefer not to use `confirm()` and `alert()` for the "replay?" and "pick an empty square" messages, respectively, but making these custom alerts was not an interesting or worthwhile problem at this time.
 
 - [X] Let players set their names
 - [X] Let players choose their marker (instead of just "X" and "O")
 - Let players choose their square background color
 - [X] Allow replay after game end (clear game board but keep names and markers)
 - [X] Track scores and maintain through replays
-- Add computer / AI opponent
-- Let players play single-player against AI or 2-player local
+- [X] Add computer / AI opponent
+- [X] Let players play single-player against AI or 2-player local
 
 ## Technologies ##
 
