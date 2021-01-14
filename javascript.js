@@ -40,18 +40,45 @@ const Gameboard = (() => {
   }
 
   function squareClicked() {
-    let currentPlayer = PlayGame.getCurrentPlayer();
-    let arrayRow = this.getAttribute('data-row');
-    let arrayColumn = this.getAttribute('data-column');
+    // Complete the player's turn and check if the game is over
+    let gameOver = completeTurn(this);
+    
+    // We only want to invoke the computer's turn if 
+    // we're playing against the computer and the game is not over
+    if (PlayGame.againstComputer && !gameOver) {
+      setTimeout(computerTakeTurn, 1000);
+    }
+  }
 
-    if (rows[arrayRow][arrayColumn] === defaultFill) {
-      rows[arrayRow][arrayColumn] = currentPlayer.mark;
-      this.innerText = currentPlayer.mark;
-      this.classList.add(`${currentPlayer.number}-color`);
-      checkForWinner(arrayRow, arrayColumn, currentPlayer);
+  function computerTakeTurn() {
+    // Find all squares without a player marker and select a random one
+    let emptySquares = [...board.querySelectorAll('.board-square')].filter(square => square.innerHTML === defaultFill);
+    let chosenSquare = emptySquares[Math.floor(Math.random() * emptySquares.length)];
+   
+    completeTurn(chosenSquare);
+  }
+
+  function completeTurn(pickedSquare) {
+    let currentPlayer = PlayGame.getCurrentPlayer();
+    // Find the row/column of the square that was clicked (or chosen by computer)
+    let row = pickedSquare.getAttribute('data-row');
+    let column = pickedSquare.getAttribute('data-column');
+
+    // Check if square is empty (else will apply to player turn only)
+    if (rows[row][column] === defaultFill) {
+      // Update the rows array with the mark
+      rows[row][column] = currentPlayer.mark;
+      // Update the square in the DOM with the mark
+      pickedSquare.innerText = currentPlayer.mark;
+      // Add the player's color to the square
+      pickedSquare.classList.add(`${currentPlayer.number}-color`);
+      // Check if the game is over via victory or tie
+      var gameOver = checkForWinner(row, column, currentPlayer);
     } else {
       alert("Please pick an empty square");
     };
+
+    return gameOver;
   }
 
   function checkForWinner(row, column, currentPlayer) {
@@ -65,7 +92,7 @@ const Gameboard = (() => {
       // Check if there's a victory across
       if (checker(rows[row])) {
         PlayGame.declareWinner(currentPlayer);
-        return; // If there is a victory, we stop checking other directions - technically there could be a dual victory for one player, but we'll add this later
+        return true; // If there is a victory, we stop checking other directions
       }
 
       let tempColumn = [];
@@ -76,7 +103,7 @@ const Gameboard = (() => {
       // Check if there's a victory up-and-down
       if (checker(tempColumn)) {
         PlayGame.declareWinner(currentPlayer);
-        return;
+        return true;
       }
 
       let rightDiagonal = [];
@@ -89,12 +116,13 @@ const Gameboard = (() => {
       // Check if there's a victory diagonally
       if (checker(rightDiagonal) || checker(leftDiagonal)) {
         PlayGame.declareWinner(currentPlayer);
-        return;
+        return true;
       }
 
       // Check if the board is filled and there is no winner
       if (!rows.flat().includes(defaultFill)) {
         alert("It's a tie!");
+        return true;
       }
   }
 
@@ -149,6 +177,7 @@ const Player = (playerName, playerMark, playerNumber) => {
 const PlayGame = (() => {
   let player1;
   let player2;
+  let computer = true;
   let playerForm = document.getElementById('player-form');
   let beginGameButton = document.getElementById('begin-game-button');
   
@@ -165,7 +194,9 @@ const PlayGame = (() => {
     beginGameButton.classList.toggle('hidden');
     gameStart(playerData);
   })
-  
+
+  const againstComputer = () => computer;
+
   const getCurrentPlayer = () => {
     if (Gameboard.getRows().flat().filter(item => item !== Gameboard.defaultFill).length % 2 === 0) {
       return player1;
@@ -195,6 +226,7 @@ const PlayGame = (() => {
   }
 
   return { 
+    againstComputer,
     gameStart,
     getCurrentPlayer,
     declareWinner
