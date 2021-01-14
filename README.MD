@@ -26,7 +26,6 @@ I also found out at the very end of the project, by testing in Chrome instead of
 
 ## Screenshots ##
 
-TBA
 ![Desktop view screenshot](/images/tictactoe_desktop_start_game.png)
 ![Desktop view screenshot](/images/tictactoe_desktop_mid_game.png)
 ![Mobile view screenshot](/images/tictactoe_mobile_mid_game.png)
@@ -47,10 +46,10 @@ If I do return to this project and rework it heavily enough, I'd also attempt to
 - [X] Let players play single-player against AI or 2-player local
 - [] Let players choose their square background color
 - [X] Only show current player info box on mobile
-- [] Make currentPlayer check more consistent and player-object-related
-- [] Rewrite IIFEs and factory functions as Classes
-- [] Rewrite pop-ups alerts as in-DOM messages
-- [] Improve AI logic to pick squares based on board state
+- [ ] Make currentPlayer check more consistent and player-object-related
+- [ ] Rewrite IIFEs and factory functions as Classes
+- [ ] Rewrite pop-ups alerts as in-DOM messages
+- [ ] Improve AI logic to pick squares based on board state
 
 ## Technologies ##
 
