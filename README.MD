@@ -44,7 +44,7 @@ If I do return to this project and rework it heavily enough, I'd also attempt to
 - [X] Track scores and maintain through replays
 - [X] Add computer / AI opponent
 - [X] Let players play single-player against AI or 2-player local
-- [] Let players choose their square background color
+- [ ] Let players choose their square background color
 - [X] Only show current player info box on mobile
 - [ ] Make currentPlayer check more consistent and player-object-related
 - [ ] Rewrite IIFEs and factory functions as Classes
