@@ -102,11 +102,20 @@ const Gameboard = (() => {
     squares.forEach(square => toggleFunction.call(square, 'click', squareClicked));
   }
 
+  function setupRematch() {
+    while (board.lastChild) {
+      board.removeChild(board.lastChild);
+    }
+    board.removeAttribute('style');
+    buildGameBoard();
+  }
+
   return { 
     getRows, 
     defaultFill,
     buildGameBoard,
-    toggleListeners
+    toggleListeners,
+    setupRematch
   };
 })()
 
@@ -163,7 +172,11 @@ const PlayGame = (() => {
 
   const declareWinner = player => {
     alert(`${player.name} wins!`);
-    Gameboard.toggleListeners(removeEventListener);
+    if (confirm("Play again?")) {
+      Gameboard.setupRematch();
+    } else {
+      Gameboard.toggleListeners(removeEventListener);
+    };
   }
 
   return { 
@@ -172,13 +185,3 @@ const PlayGame = (() => {
     declareWinner
   };
 })()
-
-// PlayGame.gameStart();
-
-
-// NEXT TO-DO: 
-// Let users give names and choose marks
-// Allow game restart (allow clear board on victory / tie)
-
-// FUTURE TO-DO:
-// Add computer / AI opponent
