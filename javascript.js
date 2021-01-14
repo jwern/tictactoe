@@ -35,6 +35,7 @@ const Gameboard = (() => {
       })
     }
 
+    board.classList.add('built');
     toggleListeners(addEventListener);
   }
 

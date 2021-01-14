@@ -9,34 +9,36 @@
 </head>
 <body>
   <div class="title">Tic-<span class="title-2">T</span>ac-<span class="title-3">Toe</span></div>
-  <div id="player-input">
-    <form id="player-form">
-      <div class="player-form-inputs">
-        <div id="player-1-inputs" class="player-inputs">
-          <fieldset>
-            <legend>Player 1:</legend>
-            <label for="player-1-name">Name</label>
-            <input type="text" id="player-1-name" class="name-input" name="player-1-name"><br/>
-            <label for="player-1-mark">Marker</label>
-            <input type="text" id="player-1-marker" class="marker-input" name="player-1-marker" maxlength="1" value="X">
-          </fieldset>
+  <div class="column-container">
+    <div id="player-input">
+      <form id="player-form">
+        <div class="player-form-inputs">
+          <div id="player-1-inputs" class="player-inputs">
+            <fieldset>
+              <legend>Player 1:</legend>
+              <label for="player-1-name">Name</label>
+              <input type="text" id="player-1-name" class="name-input" name="player-1-name"><br/>
+              <label for="player-1-mark">Marker</label>
+              <input type="text" id="player-1-marker" class="marker-input" name="player-1-marker" maxlength="1" value="X">
+            </fieldset>
+          </div>
+          <div id="player-2-inputs" class="player-inputs">
+            <fieldset>
+              <legend>Player 2:</legend>
+              <label for="player-2-name">Name</label>
+              <input type="text" id="player-2-name" class="name-input" name="player-2-name"><br/>
+              <label for="player-2-mark">Marker</label>
+              <input type="text" id="player-2-marker" class="marker-input" name="player-2-marker" maxlength="1" value="O">
+            </fieldset>
+          </div>
         </div>
-        <div id="player-2-inputs" class="player-inputs">
-          <fieldset>
-            <legend>Player 2:</legend>
-            <label for="player-2-name">Name</label>
-            <input type="text" id="player-2-name" class="name-input" name="player-2-name"><br/>
-            <label for="player-2-mark">Marker</label>
-            <input type="text" id="player-2-marker" class="marker-input" name="player-2-marker" maxlength="1" value="O">
-          </fieldset>
+        <div class="form-button">
+          <input type="submit" id="begin-game-button" value="Begin Game">
         </div>
-      </div>
-      <div class="form-button">
-        <input type="submit" id="begin-game-button" value="Begin Game">
-      </div>
-    </form>
+      </form>
+    </div>
+    <div id="game-board"></div>
   </div>
-  <div id="game-board"></div>
   <script type="text/javascript" src="./javascript.js"></script>
 </body>
 </html>
