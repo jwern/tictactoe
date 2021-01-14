@@ -55,8 +55,9 @@ body {
 
 #game-board.built {
   width: 500px;
-  max-width: 100%;
+  max-width: 95vw;
   height: 500px;
+  max-height: 95vw;
 }
 
 .board-square {
@@ -107,6 +108,12 @@ body {
 
 #player-2-inputs fieldset {
   border: 2px solid var(--player-2-color);
+}
+
+.player-inputs .score-input {
+  background-color: transparent;
+  width: 4ch;
+  color: inherit;
 }
 
 .form-button {

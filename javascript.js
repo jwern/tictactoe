@@ -125,6 +125,7 @@ const Player = (playerName, playerMark, playerNumber) => {
   let name = checkPlayerName(playerName) || playerName;
   let mark = checkPlayerMarker(playerMark) || playerMark;
   let number = playerNumber;
+  let score = 0;
 
   function checkPlayerName(name) { // Defaults if no name is given
     if (!name.trim()) {
@@ -138,7 +139,10 @@ const Player = (playerName, playerMark, playerNumber) => {
     };
   }
 
-  return { name, mark, number };
+  const addVictory = () => score++;
+  const getScore = () => score;
+
+  return { name, mark, number, addVictory, getScore };
 }
 
 // IIFE initialized immediately; returned methods available for call
@@ -171,8 +175,19 @@ const PlayGame = (() => {
     }
   }
 
+  const updateScoreboard = () => {
+    let playerOneScore = document.getElementById('player-1-score');
+    let playerTwoScore = document.getElementById('player-2-score');
+
+    playerOneScore.value = player1.getScore();
+    playerTwoScore.value = player2.getScore();
+  }
+
   const declareWinner = player => {
     alert(`${player.name} wins!`);
+    player.addVictory();
+    updateScoreboard();
+
     if (confirm("Play again?")) {
       Gameboard.setupRematch();
     } else {
