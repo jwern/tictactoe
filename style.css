@@ -120,10 +120,6 @@ body {
   border: 4px solid black;
 }
 
-#ai-check.hidden {
-  display: none;
-}
-
 #begin-game-button {
   all: unset;
   background-color: var(--button-color);
@@ -132,7 +128,7 @@ body {
   cursor: pointer;
 }
 
-.form-button {
+#form-submit-button {
   margin: var(--standard-padding);
   text-align: center;
 }
@@ -154,7 +150,7 @@ input {
   font-family: inherit;
 }
 
-#begin-game-button.hidden {
+.hidden {
   display: none;
 }
 
@@ -162,5 +158,8 @@ input {
   .column-container {
     display: flex;
     flex-direction: column-reverse;
+  }
+  .not-current-player {
+    display: none;
   }
 }

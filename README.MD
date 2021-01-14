@@ -35,7 +35,7 @@ TBA
 
 As mentioned in the post-mortem above, this project feels like it would greatly benefit from being written with Classes: after I progress through The Odin Project's Classes lessons, I would like to return and possibly rewrite this project to incorporate Classes.  Initially I was going to leave most of the features listed below for that future rewrite, but ended up implementing them as they were good practice.
 
-The elements I would most like to change in the future, besides adding Classes, are the default pop-ups: I've used shortcuts for the "replay?" and "pick an empty square" messages -- `confirm()` and `alert()`, respectively -- and would prefer these were custom messages added to the DOM instead.  This would not only look better and provide a better user experience, but it would cause fewer timing issues with some of my JavaScript-assigned styles which were appearing after the `alert()` pop-up before `setTimeout()` was added.  I've kept the defaults for now as making custom messages was a less interesting and helpful challenge than building an AI opponent.
+The elements I would most like to change in the future, besides adding Classes, are the default pop-ups: I've used shortcuts for the "replay?" and "pick an empty square" messages -- `confirm()` and `alert()`, respectively -- and would prefer these were custom messages added to the DOM instead.  This would not only look better and provide a better user experience, but it would cause fewer timing issues with some of my JavaScript-assigned styles which were appearing after the `alert()` pop-up before `setTimeout()` was added.  The `setTimeout()` fix is not perfect - very occasionally the `alert()` will still run before the DOM adjustment.  I've kept the defaults for now as making custom messages was a less interesting and helpful challenge than building an AI opponent.
 
 If I do return to this project and rework it heavily enough, I'd also attempt to make the AI less random and more dependent on the current board state.
 
@@ -46,7 +46,8 @@ If I do return to this project and rework it heavily enough, I'd also attempt to
 - [X] Add computer / AI opponent
 - [X] Let players play single-player against AI or 2-player local
 - [] Let players choose their square background color
-- [] Only show current player info box on mobile
+- [X] Only show current player info box on mobile
+- [] Make currentPlayer check more consistent and player-object-related
 - [] Rewrite IIFEs and factory functions as Classes
 - [] Rewrite pop-ups alerts as in-DOM messages
 - [] Improve AI logic to pick squares based on board state

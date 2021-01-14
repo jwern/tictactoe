@@ -5,6 +5,8 @@ const Gameboard = (() => {
   let defaultFill = " ";
   let rows;
   let board = document.getElementById('game-board');
+  let player1Box = document.getElementById('player-1-inputs');
+  let player2Box = document.getElementById('player-2-inputs');
   
   const getRows = () => rows;
 
@@ -35,6 +37,7 @@ const Gameboard = (() => {
       })
     }
 
+    player2Box.classList.add('not-current-player');
     board.classList.add('built');
     toggleListeners(addEventListener);
   }
@@ -49,6 +52,8 @@ const Gameboard = (() => {
       toggleListeners(removeEventListener);
       setTimeout(computerTakeTurn, 1000);
     }
+
+    adjustPlayerBox();
   }
 
   function computerTakeTurn() {
@@ -58,6 +63,7 @@ const Gameboard = (() => {
    
     completeTurn(chosenSquare);
     toggleListeners(addEventListener);
+    adjustPlayerBox();
   }
 
   function completeTurn(pickedSquare) {
@@ -79,6 +85,18 @@ const Gameboard = (() => {
     } else {
       alert("Please pick an empty square");
       return true;
+    };
+  }
+
+  function adjustPlayerBox() {
+    let currentPlayer = PlayGame.getCurrentPlayer();
+
+    if (currentPlayer.number === "player2") {
+      player1Box.classList.add('not-current-player');
+      player2Box.classList.remove('not-current-player');
+    } else {
+      player1Box.classList.remove('not-current-player');
+      player2Box.classList.add('not-current-player');
     };
   }
 
@@ -137,6 +155,8 @@ const Gameboard = (() => {
       board.removeChild(board.lastChild);
     }
     board.removeAttribute('style');
+    player1Box.classList.remove('not-current-player');
+    player2Box.classList.add('not-current-player');
     buildGameBoard();
   }
 
@@ -194,7 +214,7 @@ const PlayGame = (() => {
   playerForm.addEventListener('submit', e => {
     e.preventDefault();
     let playerData = Object.fromEntries(new FormData(e.target).entries());
-    let beginGameButton = document.getElementById('begin-game-button');
+    let beginGameButton = document.getElementById('form-submit-button');
     let aiButton = document.getElementById('ai-check');
 
     beginGameButton.classList.toggle('hidden');
@@ -233,6 +253,7 @@ const PlayGame = (() => {
       Gameboard.setupRematch();
     } else {
       Gameboard.toggleListeners(removeEventListener);
+      document.querySelector('.not-current-player').classList.remove('not-current-player');
     };
   }
 
