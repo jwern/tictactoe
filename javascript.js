@@ -164,9 +164,8 @@ const PlayGame = (() => {
     let playerData = Object.fromEntries(new FormData(e.target).entries());
     beginGameButton.classList.toggle('hidden');
     gameStart(playerData);
-    // e.target.reset();
   })
-
+  
   const getCurrentPlayer = () => {
     if (Gameboard.getRows().flat().filter(item => item !== Gameboard.defaultFill).length % 2 === 0) {
       return player1;
