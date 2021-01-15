@@ -1,4 +1,5 @@
 // IIFE initialized immediately; returned methods available for call
+"use strict"
 const Gameboard = (() => {
   let boardWidth = 3;
   let boardHeight = boardWidth; // Only working with square boards right now, but written with both variables to allow this to change in the future
@@ -16,7 +17,7 @@ const Gameboard = (() => {
     board.style.gridTemplateRows = `repeat(${boardHeight}, 1fr)`;
     board.style.gridTemplateColumns = `repeat(${boardWidth}, 1fr)`;
     
-    for (row of rows) {
+    for (let row of rows) {
       let rowIndex = rows.indexOf(row);
       row.forEach((item, index) => {
         let square = document.createElement('div');
@@ -116,7 +117,7 @@ const Gameboard = (() => {
 
       // Check if there's a victory up-and-down
       let tempColumn = [];
-      for (row of rows) {
+      for (let row of rows) {
         tempColumn.push(row[column]);
       }
 
@@ -128,7 +129,7 @@ const Gameboard = (() => {
       // Check if there's a victory diagonally
       let rightDiagonal = [];
       let leftDiagonal = [];
-      for  (x = 0, y = rows.length - 1; x < rows.length; x++, y--) {
+      for  (let x = 0, y = rows.length - 1; x < rows.length; x++, y--) {
         rightDiagonal.push(rows[x][x]);
         leftDiagonal.push(rows[y][x]);
       }
