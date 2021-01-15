@@ -1,5 +1,6 @@
-// IIFE initialized immediately; returned methods available for call
 "use strict"
+
+// IIFE initialized immediately; returned methods available for call
 const Gameboard = (() => {
   let boardWidth = 3;
   let boardHeight = boardWidth; // Only working with square boards right now, but written with both variables to allow this to change in the future
